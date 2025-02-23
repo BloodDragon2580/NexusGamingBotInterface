@@ -1,0 +1,116 @@
+<!DOCTYPE html> 
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Gaming Bot Interface</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #00d1b2;
+        }
+
+        .bot {
+            background-color: #1e1e1e;
+            padding: 15px;
+            margin: 10px auto;
+            width: 50%;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .status {
+            font-weight: bold;
+        }
+
+        .running {
+            color: #00d1b2;
+        }
+
+        .stopped {
+            color: #ff3860;
+        }
+
+        button {
+            padding: 10px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+        }
+
+        .start {
+            background-color: #00d1b2;
+        }
+
+        .stop {
+            background-color: #ff3860;
+        }
+
+        .restart {
+            background-color: #ffa500;
+        }
+
+        .logout {
+            background-color: #ff9800;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+    </style>
+
+    <script>
+        function controlBot(botName, action) {
+            fetch(`/${action}/` + botName, { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    alert(botName + " " + data.status);
+                    location.reload();
+                });
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Nexus Gaming Bot Interface</h1>
+        <a href="{{ url_for('logout') }}"><button class="logout">Logout</button></a>
+
+        {% for bot, status in bots.items() %}
+            <div class="bot">
+                <p><strong>{{ bot }}</strong> - Status: 
+                    <span class="status {% if status %}running{% else %}stopped{% endif %}">
+                        {{ 'Läuft' if status else 'Gestoppt' }}
+                    </span>
+                </p>
+                <button class="start" onclick="controlBot('{{ bot }}', 'start')">Start</button>
+                <button class="stop" onclick="controlBot('{{ bot }}', 'stop')">Stop</button>
+                <button class="restart" onclick="controlBot('{{ bot }}', 'restart')">Neustart</button>
+            </div>
+        {% endfor %}
+    </div>
+
+</body>
+
+</html>
