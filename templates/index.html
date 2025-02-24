@@ -84,9 +84,26 @@
                 .then(response => response.json())
                 .then(data => {
                     alert(botName + " " + data.status);
-                    location.reload();
+                    updateBotStatus(); // Aktualisiere nur den Status, ohne die Seite zu reloaden
                 });
         }
+
+        function updateBotStatus() {
+            fetch("/status")
+                .then(response => response.json())
+                .then(data => {
+                    for (const [botName, status] of Object.entries(data)) {
+                        const statusElement = document.getElementById(botName + "-status");
+                        if (statusElement) {
+                            statusElement.innerText = status.running ? "Läuft" : "Gestoppt";
+                            statusElement.className = status.running ? "status running" : "status stopped";
+                        }
+                    }
+                });
+        }
+
+        // Alle 5 Sekunden Status aktualisieren
+        setInterval(updateBotStatus, 5000);
     </script>
 
 </head>
@@ -100,8 +117,8 @@
         {% for bot, status in bots.items() %}
             <div class="bot">
                 <p><strong>{{ bot }}</strong> - Status: 
-                    <span class="status {% if status %}running{% else %}stopped{% endif %}">
-                        {{ 'Läuft' if status else 'Gestoppt' }}
+                    <span id="{{ bot }}-status" class="status {% if status.running %}running{% else %}stopped{% endif %}">
+                        {{ 'Läuft' if status.running else 'Gestoppt' }}
                     </span>
                 </p>
                 <button class="start" onclick="controlBot('{{ bot }}', 'start')">Start</button>

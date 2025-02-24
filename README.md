@@ -10,7 +10,7 @@ Lade [Python 3.11+](https://www.python.org/downloads/) herunter und installiere 
 ### 2. Installiere Flask und weitere Abhängigkeiten
 Öffne eine **Eingabeaufforderung (cmd)** und installiere die benötigten Python-Pakete:
 ```bash
-pip install flask flask-login werkzeug
+pip install flask flask-login werkzeug psutil
 ```
 
 ### 3. Installiere NSSM
@@ -52,10 +52,11 @@ python dashboard.py
 Dann öffne [http://localhost:5000](http://localhost:5000) in deinem Browser.
 
 ## Funktionen
-✅ **Anzeigen des Bot-Status** (Läuft/Gestoppt)  
+✅ **Anzeigen des Bot-Status** (Läuft/Gestoppt) mit aktualisierter Startzeit  
 ✅ **Starten und Stoppen von Bots**  
 ✅ **Neustarten von Bots**  
 ✅ **Login mit Benutzername und Passwort**  
+✅ **Automatische Aktualisierung der Statusanzeige nach Start/Stop**  
 
 ## Login-Daten ändern
 Standardmäßig ist der Benutzer in `dashboard.py` definiert:
@@ -67,6 +68,12 @@ USERS = {
 }
 ```
 Ändere `admin@example.com` und das Passwort nach deinen Wünschen.
+
+## Änderungen und Verbesserungen:
+- **Automatische Statusaktualisierung**: Nach Start/Stop eines Bots wird der Status ohne manuelles Neuladen aktualisiert.
+- **Startzeit-Anzeige**: Die Startzeit des Bots wird nun korrekt erfasst.
+- **Optimierte Steuerung**: Verbesserte Fehlerbehandlung beim Starten und Stoppen von Diensten.
+- **CSS-Verbesserungen**: Visuelle Anpassungen für bessere Lesbarkeit.
 
 ## FAQ
 **1. Mein Bot wird als gestoppt angezeigt, obwohl er läuft.**  
@@ -88,4 +95,3 @@ python dashboard.py --host=0.0.0.0 --port=5000
 
 ## Lizenz
 MIT-Lizenz – Verwende es frei für deine Projekte!
- 

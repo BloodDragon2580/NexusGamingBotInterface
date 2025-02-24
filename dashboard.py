@@ -48,6 +48,13 @@ def index():
     bot_status = {bot: check_bot_status(service) for bot, service in BOTS.items()}
     return render_template('index.html', bots=bot_status)
 
+@app.route('/status')
+@login_required
+def bot_status():
+    """ Gibt den aktuellen Status aller Bots zurück (für Live-Updates) """
+    status = {bot: {"running": check_bot_status(service)} for bot, service in BOTS.items()}
+    return jsonify(status)
+
 @app.route('/start/<bot_name>', methods=['POST'])
 @login_required
 def start_bot(bot_name):
