@@ -1,5 +1,5 @@
 @echo off
-cd /d C:\dasboard
+cd /d C:\Dashboard
 echo Starte das Flask-Dashboard...
-python dashboard.py
+python Dashboard.py
 pause

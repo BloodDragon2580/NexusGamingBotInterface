@@ -29,8 +29,10 @@ def load_user(user_id):
 
 # Windows-Dienstnamen der Bots
 BOTS = {
-    "Bot1 Name": "Bot1 Dienst Name",
-    "Bot2 Name": "Bot2 Dienst Name"
+    "Windows Server Status Bot": "WindowsServerStausBot",
+    "Nexus Radio Bot": "NexusRadioBot",
+    "Nexus Level Bot": "NexusLevelBot",
+    "Palworld Bot": "PalworldBot"
 }
 
 def check_bot_status(service_name):
